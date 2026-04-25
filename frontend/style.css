@@ -432,6 +432,7 @@ input::placeholder {
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 6px;
+  line-height: 1.8;
 }
 
 .info-text p:last-child {
@@ -439,13 +440,15 @@ input::placeholder {
 }
 
 .highlight-text {
+  display: inline-block;
   color: var(--text-main);
   font-family: var(--font-mono);
   font-weight: 800;
   background: var(--bg-surface);
-  padding: 2px 6px;
+  padding: 4px 8px;
   border: 2px solid #000000;
   box-shadow: 2px 2px 0px #000000;
+  margin-top: 4px;
 }
 
 /* ACTION BUTTONS */
@@ -654,34 +657,63 @@ p.description {
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
   .hero-title {
-    font-size: 3.5rem;
+    font-size: 2.4rem;
+  }
+  .hero-title .highlight {
+    padding: 0 6px;
+    transform: rotate(0);
   }
   .navbar {
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
     padding: 16px 0;
+  }
+  .nav-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+  .nav-actions button, .nav-actions .network-badge {
+    width: 100%;
+    justify-content: center;
   }
   .form-row {
     flex-direction: column;
     gap: 16px;
   }
   .hero-subtitle {
-    font-size: 1.1rem;
-    padding: 10px;
+    font-size: 0.95rem;
+    padding: 12px;
+  }
+  .tab-btn {
+    font-size: 0.9rem;
+    padding: 12px 0;
   }
   .tab-content {
-    padding: 20px;
+    padding: 20px 16px;
   }
   h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   .slider-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
-  .wallet-banner {
+  .wallet-banner, .info-box {
     flex-direction: column;
+    text-align: center;
+    padding: 16px;
+    gap: 12px;
+  }
+  .detail-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .detail-value {
+    font-size: 0.85rem;
+    width: 100%;
     text-align: center;
   }
   .footer-links {
