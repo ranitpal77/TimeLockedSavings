@@ -27,26 +27,26 @@ The **Time-Locked Savings dApp** is a decentralized application built on the Ste
 
 ### 📸 Wallet Connected State
 ![Wallet Connected State Placeholder 01](./screenshots/Wallet-Connected-Screenshot-02.png)
-![Wallet Connected State Placeholder 02](.\screenshots\Wallet-Connected-Screenshot-03.png)
+![Wallet Connected State Placeholder 02](./screenshots/Wallet-Connected-Screenshot-03.png)
 
 ### 📸 Balance Displayed
-![Balance Displayed Placeholder](.\screenshots\Balance-Displayed-Screenshot.png)
+![Balance Displayed Placeholder](./screenshots/Balance-Displayed-Screenshot.png)
 
 ### 📸 Transaction Result is Shown to the User
-![Transaction Result Placeholder](.\screenshots\Transaction-Result-Screenshot-01.png)
-![Transaction Result Placeholder](.\screenshots\Transaction-Result-Screenshot-02.png)
-![Transaction Result Placeholder](.\screenshots\Transaction-Result-Screenshot-03.png)
-![Transaction Result Placeholder](.\screenshots\Transaction-Result-Screenshot-04.png)
+![Transaction Result Placeholder](./screenshots/Transaction-Result-Screenshot-01.png)
+![Transaction Result Placeholder](./screenshots/Transaction-Result-Screenshot-02.png)
+![Transaction Result Placeholder](./screenshots/Transaction-Result-Screenshot-03.png)
+![Transaction Result Placeholder](./screenshots/Transaction-Result-Screenshot-04.png)
 
 ### 📸 Transaction Screenshot (Successful Testnet Transaction)
-![Transaction Screenshot Placeholder](.\screenshots\Transaction-Screenshot-01.png)
-![Transaction Screenshot Placeholder](.\screenshots\Transaction-Screenshot-02.png)
+![Transaction Screenshot Placeholder](./screenshots/Transaction-Screenshot-01.png)
+![Transaction Screenshot Placeholder](./screenshots/Transaction-Screenshot-02.png)
 
 ### 📸 Deployed Smart Contract Screenshot
-![Deployed Contract Placeholder](.\screenshots\Deployed-SmartContract-Screenshot.png)
+![Deployed Contract Placeholder](./screenshots/Deployed-SmartContract-Screenshot.png)
 
 ### 📸 UI Screenshot
-![UI Screenshot Placeholder](.\screenshots\UI.png)
+![UI Screenshot Placeholder](./screenshots/UI.png)
 
 ---
 
