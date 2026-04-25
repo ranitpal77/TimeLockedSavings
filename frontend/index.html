@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vault - Time-Locked Savings</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div id="app">
+    <nav class="navbar">
+      <div class="logo">
+        <span class="logo-text">Vault</span>
+      </div>
+      <div class="nav-actions">
+        <div class="network-badge">
+          <span class="status-dot"></span>
+          Stellar Testnet
+        </div>
+        <button id="connectBtn" class="primary-btn">
+          <span id="connectBtnText">Connect Freighter</span>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <header class="hero">
+        <div class="tagline">
+          <span class="tagline-icon">⏳</span>
+          TIME-LOCKED SAVINGS
+        </div>
+        <h1 class="hero-title">
+          Lock it.<br />
+          <span class="highlight">Grow it.</span> Unlock.
+        </h1>
+        <p class="hero-subtitle">
+          Commit your funds to the future. Soroban enforces your<br />
+          savings goals - no early exits.
+        </p>
+      </header>
+
+      <div id="walletBanner" class="wallet-banner">
+        <div class="banner-icon"><img src="keys-logo.png" alt="Wallet Logo"
+            style="width: 28px; height: 28px; border-radius: 6px; object-fit: cover;" /></div>
+        <p>
+          <span class="banner-highlight">Connect your Freighter wallet</span> to deposit, withdraw, and interact with
+          the contract.
+        </p>
+      </div>
+
+      <div class="app-container">
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="deposit">
+            <span class="tab-icon">🔒</span> Deposit
+          </button>
+          <button class="tab-btn" data-tab="withdraw">
+            <span class="tab-icon">💸</span> Withdraw
+          </button>
+        </div>
+
+        <div class="tab-content active" id="depositTab">
+          <div class="form-group row">
+            <label>YOUR WALLET ADDRESS</label>
+            <input type="text" id="walletAddressDisplay" class="input-mono"
+              placeholder="Connect wallet above to auto-fill..." readonly />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group half">
+              <label>AMOUNT (IN STROOPS)</label>
+              <div class="input-with-suffix">
+                <input type="number" id="amountInput" class="input-mono" placeholder="10000000" />
+              </div>
+            </div>
+            <div class="form-group half">
+              <label>UNLOCK DATE & TIME</label>
+              <input type="datetime-local" id="unlockDateTimePicker" class="input-mono" />
+            </div>
+          </div>
+
+          <div class="form-group row" style="margin-bottom: 24px;">
+            <label>LOCK DURATION (SECONDS)</label>
+            <input type="number" id="durationSecondsInput" class="input-mono" min="60" max="31536000"
+              style="margin-bottom: 4px;" placeholder="e.g. 86400" />
+            <div style="font-size: 0.85rem; color: #888;">Enter duration in seconds (60 &ndash; 31,536,000)</div>
+            <div id="durationError" style="font-size: 0.85rem; color: #ff4d4f; display: none; margin-top: 4px;">Invalid
+              input. Must be between 60 and 31,536,000.</div>
+          </div>
+
+          <div class="form-group row slider-group">
+            <div class="slider-header">
+              <label>QUICK LOCK DURATION</label>
+              <div class="slider-value" id="quickLockValue">1 minute</div>
+            </div>
+            <input type="range" id="quickLockSlider" min="60" max="31536000" value="60" class="custom-slider" />
+          </div>
+
+          <div class="info-box">
+            <div class="info-text" style="margin-bottom: 0; text-align: center;">
+              <p>Funds locked until <span id="lockedUntilDate" class="highlight-text">--</span></p>
+            </div>
+          </div>
+
+          <button id="depositBtn" class="action-btn">
+            <span class="btn-icon">🔒</span> Lock Funds on Soroban
+          </button>
+
+          <div id="depositStatus" class="status-message"></div>
+        </div>
+
+        <div class="tab-content" id="withdrawTab">
+          <div class="withdraw-view">
+            <h2>Withdraw Funds</h2>
+            <p class="description">Withdraw your unlocked funds from the contract.</p>
+            <p class="info-text">You can only withdraw after your lock time expires. Ensure you are connected to the
+              same wallet you used to deposit.</p>
+
+            <button id="withdrawBtn" class="action-btn secondary">
+              <span class="btn-icon">💸</span> Withdraw Tokens
+            </button>
+
+            <div id="withdrawStatus" class="status-message"></div>
+          </div>
+        </div>
+
+      </div>
+  </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <span>View Contract on <a
+          href="https://stellar.expert/explorer/testnet/contract/CA42QQ62UQSW3LY7FZ4ZSIXPW4IJX7J5RBW6UZHOMX7YBWPID5LPTR5T"
+          target="_blank" class="address-link" id="contractAddressLink">Stellar.expert ↗</a></span>
+      <span class="separator">·</span>
+      <span>Stellar Testnet</span>
+      <span class="separator">·</span>
+      <span>Powered by Soroban SDK</span>
+    </div>
+  </footer>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>
