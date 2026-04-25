@@ -720,7 +720,4 @@ p.description {
     flex-direction: column;
     gap: 8px;
   }
-  .separator {
-    display: none;
-  }
 }
