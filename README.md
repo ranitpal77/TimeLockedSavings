@@ -25,14 +25,28 @@ The **Time-Locked Savings dApp** is a decentralized application built on the Ste
 
 ---
 
-### 📸 Transaction Screenshot
-![Transaction Screenshot Placeholder](Transaction-Screenshot.png)
+### 📸 Wallet Connected State
+![Wallet Connected State Placeholder 01](.\screenshots\Wallet-Connected-Screenshot-02.png)
+![Wallet Connected State Placeholder 02](.\screenshots\Wallet-Connected-Screenshot-03.png)
+
+### 📸 Balance Displayed
+![Balance Displayed Placeholder](.\screenshots\Balance-Displayed-Screenshot.png)
+
+### 📸 Transaction Result is Shown to the User
+![Transaction Result Placeholder](.\screenshots\Transaction-Result-Screenshot-01.png)
+![Transaction Result Placeholder](.\screenshots\Transaction-Result-Screenshot-02.png)
+![Transaction Result Placeholder](.\screenshots\Transaction-Result-Screenshot-03.png)
+![Transaction Result Placeholder](.\screenshots\Transaction-Result-Screenshot-04.png)
+
+### 📸 Transaction Screenshot (Successful Testnet Transaction)
+![Transaction Screenshot Placeholder](.\screenshots\Transaction-Screenshot-01.png)
+![Transaction Screenshot Placeholder](.\screenshots\Transaction-Screenshot-02.png)
 
 ### 📸 Deployed Smart Contract Screenshot
-![Deployed Contract Placeholder](Deployed-SmartContract-Screenshot.png)
+![Deployed Contract Placeholder](.\screenshots\Deployed-SmartContract-Screenshot.png)
 
 ### 📸 UI Screenshot
-![UI Screenshot Placeholder](UI.png)
+![UI Screenshot Placeholder](.\screenshots\UI.png)
 
 ---
 
@@ -43,6 +57,29 @@ The **Time-Locked Savings dApp** is a decentralized application built on the Ste
 - **Build Tooling**: Vite
 - **Wallet Integration**: `@stellar/freighter-api`
 - **Blockchain Interaction API**: `@stellar/stellar-sdk`
+
+## 🛠️ Setup Instructions (How to run locally)
+
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- Rust and Cargo (for smart contract compilation, optional for frontend)
+- Freighter Wallet extension installed in your browser
+
+### Running the Frontend
+1. Clone the repository and navigate to the project directory.
+2. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+3. Install the dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+5. Open the local URL provided by Vite in your browser.
 
 ## 🔮 Future Enhancements
 - **Yield Generation**: Integrate with Stellar DeFi lending pools (e.g., Blend) so locked assets accumulate interest during the vesting period.
