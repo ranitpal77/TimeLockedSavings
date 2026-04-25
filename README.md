@@ -26,7 +26,7 @@ The **Time-Locked Savings dApp** is a decentralized application built on the Ste
 ---
 
 ### 📸 Wallet Connected State
-![Wallet Connected State Placeholder 01](.\screenshots\Wallet-Connected-Screenshot-02.png)
+![Wallet Connected State Placeholder 01](./screenshots/Wallet-Connected-Screenshot-02.png)
 ![Wallet Connected State Placeholder 02](.\screenshots\Wallet-Connected-Screenshot-03.png)
 
 ### 📸 Balance Displayed
