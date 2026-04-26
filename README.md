@@ -1,6 +1,11 @@
 # ⏳ Time-Locked Savings dApp
 
 [![Rust CI](https://github.com/ranitpal77/TimeLockedSavings/actions/workflows/test.yml/badge.svg)](https://github.com/ranitpal77/TimeLockedSavings/actions/workflows/test.yml)
+
+![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
+![Stellar](https://img.shields.io/badge/stellar-%23EF3B49.svg?style=for-the-badge&logo=stellar&logoColor=white)
+![Soroban](https://img.shields.io/badge/soroban-%232D79C7.svg?style=for-the-badge)
+
 ## 📖 Project Description
 The **Time-Locked Savings dApp** is a decentralized application built on the Stellar network utilizing Soroban Smart Contracts. It promotes disciplined saving mechanisms or delayed gratification by allowing users to securely lock up their Stellar assets (e.g., XLM, USDC, DAO tokens) for a predefined period. Once the funds are locked, they are cryptographically secured and strictly immobilized. The funds cannot be retrieved under any circumstances until the designated maturity timeline (ledger timestamp) has been reached.
 
