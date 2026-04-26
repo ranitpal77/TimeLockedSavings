@@ -62,6 +62,42 @@ The **Time-Locked Savings dApp** is a decentralized application built on the Ste
 
 ---
 
+## 🏗️ Architecture (High-Level Flow)
+```mermaid
+graph TD
+    A[User] -->|Interacts with UI| B(Frontend: HTML/CSS/JS)
+    B -->|Connects Wallet| C{Freighter Wallet}
+    C -->|Approves Tx| B
+    B -->|RPC Calls| D[Stellar Testnet Node]
+    D -->|Executes| E((Soroban Smart Contract))
+    E -->|Hold Funds| F[(Time-Locked Vault)]
+    E -->|Release Funds| C
+```
+
+## 🛣️ Pipeline (Development Plan)
+```mermaid
+flowchart LR
+    subgraph Phase 1: Planning
+        A[Define Requirements] --> B[Architecture Design]
+    end
+    subgraph Phase 2: Smart Contracts
+        B --> C[Develop Rust Contract]
+        C --> D[Write Unit Tests]
+    end
+    subgraph Phase 3: Frontend
+        D --> E[Design UI/UX]
+        E --> F[Implement Vanilla JS]
+    end
+    subgraph Phase 4: Integration
+        F --> G[Freighter Wallet Connect]
+        G --> H[Soroban RPC Integration]
+    end
+    subgraph Phase 5: Finalization
+        H --> I[GitHub Actions CI/CD]
+        I --> J[Testnet Deployment]
+    end
+```
+
 ## 🛠️ Tech Stack
 - **Smart Contract Ecosystem**: Rust, Soroban SDK
 - **Network**: Stellar Testnet
