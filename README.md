@@ -48,6 +48,9 @@ The **Time-Locked Savings dApp** is a decentralized application built on the Ste
 ### 📸 UI Screenshot
 ![UI Screenshot Placeholder](./screenshots/UI.png)
 
+### 📸 Mobile Responsive View
+![Mobile Responsive View](./screenshots/mobile-responsive-view.png)
+
 ### 📸 Test Output
 ![test output showing 3+ tests passing](./screenshots/test-output-02.png)
 
