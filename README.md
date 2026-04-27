@@ -63,6 +63,9 @@ The **Time-Locked Savings dApp** is a decentralized application built on the Ste
 ### 📸 Test Output
 ![test output showing 3+ tests passing](./screenshots/test-output-02.png)
 
+### 📸 CI/CD Pipeline
+![CI/CD Pipeline running](./screenshots/Screenshot-of-cicd.png)
+
 ---
 
 ## 🏗️ Architecture (High-Level Flow)
