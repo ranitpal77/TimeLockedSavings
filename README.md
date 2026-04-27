@@ -141,7 +141,7 @@ flowchart LR
 ```text
 Time-Locked-Savings/
 ├── contracts/
-│   └── hello-world/           # Core Soroban Smart Contract
+│   └── time_locked_savings/   # Core Soroban Smart Contract
 │       ├── src/
 │       │   ├── lib.rs         # The TimeLockedSavings Rust Contract logic
 │       │   └── test.rs        # Contract Unit tests

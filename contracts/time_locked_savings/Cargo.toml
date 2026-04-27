@@ -1,5 +1,5 @@
 [package]
-name = "hello-world"
+name = "time_locked_savings"
 version = "0.0.0"
 edition = "2021"
 publish = false
