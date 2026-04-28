@@ -171,12 +171,12 @@ function setStatus(element, msg, type = 'loading') {
 
 function renderHistory() {
   if (!userPublicKey) {
-    if (historyList) historyList.innerHTML = '<p class="info-text">Connect your wallet to view history.</p>';
+    if (historyList) historyList.innerHTML = '<div class="info-box" style="text-align: center; padding: 32px;"><p class="info-text" style="margin:0; color: var(--text-main); font-weight: bold;">Connect your wallet to view history.</p></div>';
     return;
   }
   const history = JSON.parse(localStorage.getItem('vaultHistory_' + userPublicKey) || '[]');
   if (history.length === 0) {
-    if (historyList) historyList.innerHTML = '<p class="info-text">No history found for this wallet.</p>';
+    if (historyList) historyList.innerHTML = '<div class="info-box" style="text-align: center; padding: 32px;"><p class="info-text" style="margin:0; color: var(--text-main); font-weight: bold;">No transactions yet.</p></div>';
     return;
   }
   
@@ -188,9 +188,24 @@ function renderHistory() {
     const dateStr = new Date(item.timestamp * 1000).toLocaleString();
     let typeClass = item.type === 'Deposit' ? 'history-type-deposit' : 'history-type-withdraw';
     
+    let typeText = item.type;
+    let amountText = item.amount ? item.amount + ' XLM' : '';
+    
+    if (item.type === 'Deposit') {
+      typeText = `Deposit ${item.id || ''}`;
+    } else if (item.type === 'Withdraw') {
+      typeText = item.depositId ? `Withdraw (${item.depositId})` : 'Withdraw (Legacy)';
+    }
+    
     let timerHtml = '';
     if (item.type === 'Deposit' && item.unlockTime) {
-      const isWithdrawn = history.some(h => h.type === 'Withdraw' && h.timestamp > item.timestamp);
+      let isWithdrawn = false;
+      if (item.id) {
+         isWithdrawn = history.some(h => h.type === 'Withdraw' && h.depositId === item.id);
+      } else {
+         isWithdrawn = history.some(h => h.type === 'Withdraw' && h.timestamp >= item.unlockTime && h.timestamp > item.timestamp);
+      }
+      
       if (isWithdrawn) {
         timerHtml = `<div style="font-size: 0.9rem; margin-top: 4px;">Status: <span style="color: #34d399; font-weight: bold;">Withdrawn</span></div>`;
       } else {
@@ -200,8 +215,8 @@ function renderHistory() {
     
     el.innerHTML = `
       <div class="history-item-header">
-        <span class="${typeClass}">${item.type}</span>
-        <span>${item.amount ? item.amount + ' XLM' : ''}</span>
+        <span class="${typeClass}">${typeText}</span>
+        <span>${amountText}</span>
       </div>
       <div style="font-size: 0.85rem; color: #666;">Date: ${dateStr}</div>
       ${timerHtml}
@@ -400,8 +415,10 @@ depositBtn.addEventListener('click', async () => {
     const success = await submitTransaction(preparedTx, userPublicKey, depositStatus);
     if (success) {
       const history = JSON.parse(localStorage.getItem('vaultHistory_' + userPublicKey) || '[]');
+      const uniqueId = '#' + Math.random().toString(36).substring(2, 6).toUpperCase();
       history.push({
          type: 'Deposit',
+         id: uniqueId,
          amount: amt,
          unlockTime: currentSelectedUnix,
          timestamp: Math.floor(Date.now() / 1000)
@@ -446,10 +463,42 @@ withdrawBtn.addEventListener('click', async () => {
     const success = await submitTransaction(preparedTx, userPublicKey, withdrawStatus);
     if (success) {
       const history = JSON.parse(localStorage.getItem('vaultHistory_' + userPublicKey) || '[]');
-      history.push({
-         type: 'Withdraw',
-         timestamp: Math.floor(Date.now() / 1000)
+      const now = Math.floor(Date.now() / 1000);
+      
+      history.forEach((h, idx) => {
+        if (h.type === 'Deposit' && !h.id) h.id = '#OLD' + idx;
       });
+
+      const unlockedDeposits = history.filter(h => {
+        if (h.type !== 'Deposit') return false;
+        if (h.unlockTime > now) return false;
+        
+        let isWithdrawn = false;
+        if (h.id && history.some(w => w.type === 'Withdraw' && w.depositId === h.id)) {
+          isWithdrawn = true;
+        } else if (!h.id && history.some(w => w.type === 'Withdraw' && w.timestamp >= h.unlockTime && w.timestamp > h.timestamp)) {
+          isWithdrawn = true;
+        }
+        return !isWithdrawn;
+      });
+
+      if (unlockedDeposits.length > 0) {
+        unlockedDeposits.forEach(dep => {
+          history.push({
+             type: 'Withdraw',
+             depositId: dep.id,
+             amount: dep.amount,
+             timestamp: now
+          });
+        });
+      } else {
+        // Fallback if the contract allowed a withdraw but we don't have matching local deposits
+        history.push({
+           type: 'Withdraw',
+           timestamp: now
+        });
+      }
+      
       localStorage.setItem('vaultHistory_' + userPublicKey, JSON.stringify(history));
       renderHistory();
     }
