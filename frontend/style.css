@@ -597,6 +597,33 @@ p.description {
   display: none !important;
 }
 
+/* HISTORY LIST */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.history-item {
+  background: var(--bg-surface);
+  border: var(--border-thick);
+  padding: 16px;
+  box-shadow: var(--neo-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.history-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.history-type-deposit { color: #5b93ff; }
+.history-type-withdraw { color: #34d399; }
+.timer-active { color: #ff4d4f; font-family: var(--font-mono); font-weight: bold; }
+.timer-ready { color: #34d399; font-family: var(--font-mono); font-weight: bold; }
+
 /* View deposit details styling */
 .deposit-details {
   margin-top: 32px;

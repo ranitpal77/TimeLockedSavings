@@ -65,6 +65,9 @@
           <button class="tab-btn" data-tab="withdraw">
             <span class="tab-icon">💸</span> Withdraw
           </button>
+          <button class="tab-btn" data-tab="history">
+            <span class="tab-icon">📜</span> History
+          </button>
         </div>
 
         <div class="tab-content active" id="depositTab">
@@ -76,9 +79,9 @@
 
           <div class="form-row">
             <div class="form-group half">
-              <label>AMOUNT (IN STROOPS)</label>
+              <label>AMOUNT (XLM)</label>
               <div class="input-with-suffix">
-                <input type="number" id="amountInput" class="input-mono" placeholder="10000000" />
+                <input type="number" step="0.0000001" id="amountInput" class="input-mono" placeholder="10.5" />
               </div>
             </div>
             <div class="form-group half">
@@ -129,6 +132,16 @@
             </button>
 
             <div id="withdrawStatus" class="status-message"></div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="historyTab">
+          <div class="history-view">
+            <h2>Transaction History</h2>
+            <p class="description">Your deposit and withdrawal history with live timers.</p>
+            <div id="historyList" class="history-list">
+              <p class="info-text">Connect your wallet to view history.</p>
+            </div>
           </div>
         </div>
 

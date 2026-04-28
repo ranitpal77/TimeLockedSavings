@@ -23,6 +23,7 @@ const withdrawBtn = document.getElementById('withdrawBtn');
 
 const depositStatus = document.getElementById('depositStatus');
 const withdrawStatus = document.getElementById('withdrawStatus');
+const historyList = document.getElementById('historyList');
 
 const walletAddressDisplay = document.getElementById('walletAddressDisplay');
 const amountInput = document.getElementById('amountInput');
@@ -165,6 +166,72 @@ function setStatus(element, msg, type = 'loading') {
   element.className = `status-message ${type}`;
 }
 
+function renderHistory() {
+  if (!userPublicKey) {
+    if (historyList) historyList.innerHTML = '<p class="info-text">Connect your wallet to view history.</p>';
+    return;
+  }
+  const history = JSON.parse(localStorage.getItem('vaultHistory_' + userPublicKey) || '[]');
+  if (history.length === 0) {
+    if (historyList) historyList.innerHTML = '<p class="info-text">No history found for this wallet.</p>';
+    return;
+  }
+  
+  if (historyList) historyList.innerHTML = '';
+  history.slice().reverse().forEach((item) => {
+    const el = document.createElement('div');
+    el.className = 'history-item';
+    
+    const dateStr = new Date(item.timestamp * 1000).toLocaleString();
+    let typeClass = item.type === 'Deposit' ? 'history-type-deposit' : 'history-type-withdraw';
+    
+    let timerHtml = '';
+    if (item.type === 'Deposit' && item.unlockTime) {
+      const isWithdrawn = history.some(h => h.type === 'Withdraw' && h.timestamp > item.timestamp);
+      if (isWithdrawn) {
+        timerHtml = `<div style="font-size: 0.9rem; margin-top: 4px;">Status: <span style="color: #34d399; font-weight: bold;">Withdrawn</span></div>`;
+      } else {
+        timerHtml = `<div style="font-size: 0.9rem; margin-top: 4px;">Status: <span class="timer-countdown" data-unlock="${item.unlockTime}">Calculating...</span></div>`;
+      }
+    }
+    
+    el.innerHTML = `
+      <div class="history-item-header">
+        <span class="${typeClass}">${item.type}</span>
+        <span>${item.amount ? item.amount + ' XLM' : ''}</span>
+      </div>
+      <div style="font-size: 0.85rem; color: #666;">Date: ${dateStr}</div>
+      ${timerHtml}
+    `;
+    if (historyList) historyList.appendChild(el);
+  });
+}
+
+setInterval(() => {
+  const timers = document.querySelectorAll('.timer-countdown');
+  const now = Math.floor(Date.now() / 1000);
+  timers.forEach(t => {
+    const unlockTime = parseInt(t.getAttribute('data-unlock'));
+    const diff = unlockTime - now;
+    if (diff > 0) {
+      const d = Math.floor(diff / 86400);
+      const h = Math.floor((diff % 86400) / 3600);
+      const m = Math.floor((diff % 3600) / 60);
+      const s = diff % 60;
+      let timeStr = '';
+      if (d > 0) timeStr += `${d}d `;
+      if (h > 0 || d > 0) timeStr += `${h}h `;
+      timeStr += `${m}m ${s}s`;
+      
+      t.textContent = `Locked (${timeStr})`;
+      t.className = 'timer-countdown timer-active';
+    } else {
+      t.textContent = 'Unlocked & Ready';
+      t.className = 'timer-countdown timer-ready';
+    }
+  });
+}, 1000);
+
 // --- WALLET CONNECTION ---
 async function connectWallet() {
   try {
@@ -190,6 +257,7 @@ async function connectWallet() {
         connectBtnText.textContent = shortAddress;
         walletBanner.innerHTML = `<div class="banner-icon">✅</div><p>Wallet connected! Ready to interact with the Vault.</p>`;
         walletAddressDisplay.value = userPublicKey;
+        renderHistory();
       } else {
         connectBtnText.textContent = 'Connect Freighter';
         alert('Failed to get public key.');
@@ -260,6 +328,12 @@ depositBtn.addEventListener('click', async () => {
     return;
   }
   
+  const amtNum = parseFloat(amt);
+  if (isNaN(amtNum) || amtNum <= 0) {
+    setStatus(depositStatus, 'Please enter a valid positive amount.', 'error');
+    return;
+  }
+
   if (currentSelectedUnix <= Math.floor(Date.now() / 1000)) {
     setStatus(depositStatus, 'Unlock time must be in the future.', 'error');
     return;
@@ -278,7 +352,8 @@ depositBtn.addEventListener('click', async () => {
     
     const userScVal = new StellarSdk.Address(userPublicKey).toScVal();
     const tokenScVal = new StellarSdk.Address(TOKEN_ADDRESS).toScVal();
-    const amountScVal = StellarSdk.nativeToScVal(BigInt(amt), { type: 'i128' });
+    const stroops = Math.floor(amtNum * 10000000);
+    const amountScVal = StellarSdk.nativeToScVal(BigInt(stroops), { type: 'i128' });
     const unlockTimeScVal = StellarSdk.nativeToScVal(BigInt(currentSelectedUnix), { type: 'u64' });
 
     const operation = contract.call("deposit", userScVal, tokenScVal, amountScVal, unlockTimeScVal);
@@ -292,7 +367,18 @@ depositBtn.addEventListener('click', async () => {
       .build();
 
     const preparedTx = await server.prepareTransaction(tx);
-    await submitTransaction(preparedTx, userPublicKey, depositStatus);
+    const success = await submitTransaction(preparedTx, userPublicKey, depositStatus);
+    if (success) {
+      const history = JSON.parse(localStorage.getItem('vaultHistory_' + userPublicKey) || '[]');
+      history.push({
+         type: 'Deposit',
+         amount: amt,
+         unlockTime: currentSelectedUnix,
+         timestamp: Math.floor(Date.now() / 1000)
+      });
+      localStorage.setItem('vaultHistory_' + userPublicKey, JSON.stringify(history));
+      renderHistory();
+    }
   } catch (error) {
     console.error(error);
     if (error.message && error.message.includes("UnreachableCodeReached")) {
@@ -327,7 +413,16 @@ withdrawBtn.addEventListener('click', async () => {
       .build();
 
     const preparedTx = await server.prepareTransaction(tx);
-    await submitTransaction(preparedTx, userPublicKey, withdrawStatus);
+    const success = await submitTransaction(preparedTx, userPublicKey, withdrawStatus);
+    if (success) {
+      const history = JSON.parse(localStorage.getItem('vaultHistory_' + userPublicKey) || '[]');
+      history.push({
+         type: 'Withdraw',
+         timestamp: Math.floor(Date.now() / 1000)
+      });
+      localStorage.setItem('vaultHistory_' + userPublicKey, JSON.stringify(history));
+      renderHistory();
+    }
   } catch (error) {
     console.error(error);
     if (error.message && error.message.includes("UnreachableCodeReached") || error.message.includes("WasmVm")) {
