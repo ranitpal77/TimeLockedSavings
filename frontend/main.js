@@ -25,6 +25,9 @@ const depositStatus = document.getElementById('depositStatus');
 const withdrawStatus = document.getElementById('withdrawStatus');
 const historyList = document.getElementById('historyList');
 
+const checkBalanceBtn = document.getElementById('checkBalanceBtn');
+const balanceDisplay = document.getElementById('balanceDisplay');
+
 const walletAddressDisplay = document.getElementById('walletAddressDisplay');
 const amountInput = document.getElementById('amountInput');
 const unlockDateTimePicker = document.getElementById('unlockDateTimePicker');
@@ -274,6 +277,33 @@ async function connectWallet() {
 }
 
 connectBtn.addEventListener('click', connectWallet);
+
+// --- BALANCE CHECK ---
+if (checkBalanceBtn) {
+  checkBalanceBtn.addEventListener('click', async () => {
+    if (!userPublicKey) {
+      alert("Please connect your wallet first.");
+      return;
+    }
+    
+    checkBalanceBtn.textContent = 'Checking...';
+    try {
+      const horizonServer = new StellarSdk.Horizon.Server('https://horizon-testnet.stellar.org');
+      const account = await horizonServer.loadAccount(userPublicKey);
+      const xlmBalance = account.balances.find(b => b.asset_type === 'native');
+      const xlmAmount = xlmBalance ? xlmBalance.balance : '0';
+      
+      balanceDisplay.textContent = `Balance: ${xlmAmount} XLM`;
+      balanceDisplay.classList.remove('hidden');
+    } catch (err) {
+      console.error(err);
+      balanceDisplay.textContent = 'Error fetching balance. Make sure account is funded on testnet.';
+      balanceDisplay.classList.remove('hidden');
+    } finally {
+      checkBalanceBtn.textContent = 'Check Balance';
+    }
+  });
+}
 
 // --- TRANSACTION SUBMISSION ---
 async function submitTransaction(tx, submitter, statusElem) {

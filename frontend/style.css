@@ -300,6 +300,13 @@ button {
   }
 }
 
+/* ICONS ALIGNMENT */
+.tab-icon, .btn-icon, .tagline-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* FORM ELEMENTS */
 .form-group {
   margin-bottom: 28px;
