@@ -1,0 +1,20 @@
+Idea Submission: Time-Locked Savings dApp
+
+-> Project Overview: I am building the Time-Locked Savings dApp, a decentralized application built on the Stellar network using Soroban Smart Contracts. It enables users to securely lock their Stellar assets (e.g., XLM, USDC) for a user-defined period. This promotes disciplined saving, delayed gratification, and enhanced security. Funds are strictly immobilized in a decentralized custody contract and cannot be retrieved under any circumstances until the maturity timeline (ledger timestamp) is mathematically reached.
+
+---
+
+Level 5 Plan (MVP & User Validation):
+
+-> MVP Completion: I will deliver a fully functional frontend with a responsive glassmorphic UI, seamlessly integrated with the deployed Soroban smart contract on the Stellar Testnet via the Freighter wallet.
+-> User Onboarding: I will onboard at least 5 real testnet users to interact with the lockup and withdrawal functions.
+Feedback Collection: I will use a Google Form to collect user details (wallet addresses, emails) and product ratings. The exported Excel sheet will be linked directly in my project's README.
+-> Iteration: I will analyze the feedback to identify UX bottlenecks or feature requests, implement the necessary improvements in the codebase, and document these iterations in the README (including exact git commit links).
+
+---
+
+Level 6 Plan (Scaling & Production Readiness):
+
+-> Scaling & Tracking: I will scale the platform to 30+ active testnet users. I will implement a metrics dashboard to track Daily Active Users (DAU) and Total Value Locked (TVL) over time, alongside active production monitoring.
+-> Advanced Feature (Black Belt Requirement): I plan to implement Fee Sponsorship (Gasless Transactions) using fee bumps. This will allow users to deposit their savings without worrying about holding extra XLM for transaction fees, vastly improving the onboarding experience. (Alternatively, I will explore Account Abstraction for a smart wallet auth experience).
+-> Security & Community: I will meticulously complete the security checklist, finalize all technical documentation/user guides, and fulfill the community contribution by showcasing the project on Twitter.

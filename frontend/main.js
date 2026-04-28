@@ -5,7 +5,7 @@ import {
 } from '@stellar/freighter-api';
 import * as StellarSdk from '@stellar/stellar-sdk';
 
-const CONTRACT_ID = 'CA42QQ62UQSW3LY7FZ4ZSIXPW4IJX7J5RBW6UZHOMX7YBWPID5LPTR5T';
+const CONTRACT_ID = 'CB7325I7Q2ZX3TQFJSVSDYR5PJUNA5MR3CG4LPEDLHHXTWWWNM6RBYSD';
 const TOKEN_ADDRESS = 'CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC'; // Testnet XLM
 const NETWORK_PASSPHRASE = StellarSdk.Networks.TESTNET;
 const rpcUrl = 'https://soroban-testnet.stellar.org';

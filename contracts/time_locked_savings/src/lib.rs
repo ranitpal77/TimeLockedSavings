@@ -1,5 +1,5 @@
 #![no_std]
-use soroban_sdk::{contract, contractimpl, contracttype, token, Address, Env};
+use soroban_sdk::{contract, contractimpl, contracttype, token, Address, Env, Vec};
 
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -24,11 +24,6 @@ impl TimeLockedSavings {
     pub fn deposit(env: Env, user: Address, token: Address, amount: i128, unlock_time: u64) {
         user.require_auth();
 
-        let key = DataKey::UserDeposit(user.clone());
-        if env.storage().persistent().has(&key) {
-            panic!("User already has an active deposit. Withdraw it first.");
-        }
-
         if amount <= 0 {
             panic!("Deposit amount must be strictly positive.");
         }
@@ -41,39 +36,60 @@ impl TimeLockedSavings {
         let token_client = token::Client::new(&env, &token);
         token_client.transfer(&user, &env.current_contract_address(), &amount);
 
+        let key = DataKey::UserDeposit(user.clone());
+        let mut deposits: Vec<Deposit> = env.storage().persistent().get(&key).unwrap_or(Vec::new(&env));
+
         // Record the deposit
-        let deposit = Deposit {
+        deposits.push_back(Deposit {
             token,
             amount,
             unlock_time,
-        };
-        env.storage().persistent().set(&key, &deposit);
+        });
+
+        env.storage().persistent().set(&key, &deposits);
     }
 
     /// Withdraw funds from the time-locked savings.
-    /// Fails if the current ledger timestamp is less than the `unlock_time`.
+    /// Fails if there are no unlocked deposits.
     pub fn withdraw(env: Env, user: Address) {
         user.require_auth();
 
         let key = DataKey::UserDeposit(user.clone());
-        let deposit: Deposit = env.storage().persistent().get(&key).expect("No deposit found for user.");
+        let deposits: Vec<Deposit> = env.storage().persistent().get(&key).expect("No deposit found for user.");
 
-        if env.ledger().timestamp() < deposit.unlock_time {
+        let mut remaining_deposits = Vec::new(&env);
+        let mut total_withdrawn: i128 = 0;
+        let mut withdraw_token = None;
+
+        for deposit in deposits.iter() {
+            if env.ledger().timestamp() >= deposit.unlock_time {
+                total_withdrawn += deposit.amount;
+                withdraw_token = Some(deposit.token.clone());
+            } else {
+                remaining_deposits.push_back(deposit);
+            }
+        }
+
+        if total_withdrawn == 0 {
             panic!("Funds are still locked.");
         }
 
-        // Transfer funds back to the user
-        let token_client = token::Client::new(&env, &deposit.token);
-        token_client.transfer(&env.current_contract_address(), &user, &deposit.amount);
+        if let Some(t) = withdraw_token {
+            let token_client = token::Client::new(&env, &t);
+            token_client.transfer(&env.current_contract_address(), &user, &total_withdrawn);
+        }
 
-        // Remove the deposit record
-        env.storage().persistent().remove(&key);
+        if remaining_deposits.is_empty() {
+            env.storage().persistent().remove(&key);
+        } else {
+            env.storage().persistent().set(&key, &remaining_deposits);
+        }
     }
 
-    /// Read the current deposit for a user, if any.
-    pub fn get_deposit(env: Env, user: Address) -> Option<Deposit> {
+    /// Read the current deposits for a user.
+    pub fn get_deposits(env: Env, user: Address) -> Vec<Deposit> {
         let key = DataKey::UserDeposit(user);
-        env.storage().persistent().get(&key)
+        env.storage().persistent().get(&key).unwrap_or(Vec::new(&env))
     }
 }
 

@@ -35,7 +35,9 @@ fn test_deposit() {
     assert_eq!(token.balance(&user), 500);
     assert_eq!(token.balance(&contract_id), 500);
     
-    let deposit = client.get_deposit(&user).unwrap();
+    let deposits = client.get_deposits(&user);
+    assert_eq!(deposits.len(), 1);
+    let deposit = deposits.get(0).unwrap();
     assert_eq!(deposit.amount, 500);
     assert_eq!(deposit.unlock_time, unlock_time);
     assert_eq!(deposit.token, token.address);
@@ -68,7 +70,43 @@ fn test_withdraw() {
     assert_eq!(token.balance(&user), 1000);
     assert_eq!(token.balance(&contract_id), 0);
     
-    assert!(client.get_deposit(&user).is_none());
+    assert_eq!(client.get_deposits(&user).len(), 0);
+}
+
+#[test]
+fn test_multiple_deposits_and_partial_withdraw() {
+    let env = Env::default();
+    env.mock_all_auths();
+    
+    let contract_id = env.register(TimeLockedSavings, ());
+    let client = TimeLockedSavingsClient::new(&env, &contract_id);
+    
+    let user = Address::generate(&env);
+    let admin = Address::generate(&env);
+    let (token, token_admin) = create_token_contract(&env, &admin);
+    
+    token_admin.mint(&user, &1000);
+    
+    env.ledger().set_timestamp(50);
+    
+    client.deposit(&user, &token.address, &300, &100);
+    client.deposit(&user, &token.address, &400, &200);
+    
+    assert_eq!(token.balance(&user), 300);
+    assert_eq!(token.balance(&contract_id), 700);
+    
+    assert_eq!(client.get_deposits(&user).len(), 2);
+    
+    // Fast forward to only unlock the first deposit
+    env.ledger().set_timestamp(150);
+    
+    client.withdraw(&user);
+    
+    // First deposit (300) should be withdrawn. Second deposit (400) should still be locked.
+    assert_eq!(token.balance(&user), 600);
+    assert_eq!(token.balance(&contract_id), 400);
+    
+    assert_eq!(client.get_deposits(&user).len(), 1);
 }
 
 #[test]
