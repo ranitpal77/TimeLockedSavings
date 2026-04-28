@@ -32,3 +32,6 @@ We have successfully completed a major development sprint, shipping 9 commits ov
     *   We solved the critical Netlify hosting bug. We added a `vite.config.js` file to explicitly instruct the build pipeline to compile the new documentation page, and we swapped all the `href` paths to absolute paths (`/docs/index.html`) so the Netlify SPA router wouldn't keep appending `docs/docs/docs/` onto the URL string.
 *   **[`8e5c185`](https://github.com/ranitpal77/TimeLockedSavings/commit/8e5c185) style: update logo text on docs page**
     *   A final visual tweak changing the logo text from "Vault Docs" back to just "Vault" for perfect cross-site consistency.
+*   **[`703129e`](https://github.com/ranitpal77/TimeLockedSavings/commit/703129e) style: fix mobile UI alignment for tabs and check balance button**
+    *   Updated the mobile CSS media queries to stack the tab buttons vertically on phone screens to prevent text overlap.
+    *   Fixed the padding on the "Check Balance" button so it doesn't collapse vertically when wrapping to a new line on smaller devices.
