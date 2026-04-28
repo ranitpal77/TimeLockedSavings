@@ -331,7 +331,7 @@ button {
 
 #checkBalanceBtn {
   width: auto;
-  padding: 0 16px;
+  padding: 14px 16px;
   font-size: 0.95rem;
 }
 
@@ -762,9 +762,13 @@ p.description {
     font-size: 0.95rem;
     padding: 12px;
   }
+  .tabs {
+    flex-direction: column;
+    gap: 12px;
+  }
   .tab-btn {
-    font-size: 0.9rem;
-    padding: 12px 0;
+    font-size: 1rem;
+    padding: 16px 0;
   }
   .tab-content {
     padding: 20px 16px;
