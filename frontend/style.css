@@ -323,6 +323,18 @@ button {
   margin-bottom: 0;
 }
 
+.wallet-input-row {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+#checkBalanceBtn {
+  width: auto;
+  padding: 0 16px;
+  font-size: 0.95rem;
+}
+
 label {
   display: block;
   font-size: 0.9rem;
@@ -742,7 +754,7 @@ p.description {
     width: 100%;
     justify-content: center;
   }
-  .form-row {
+  .form-row, .wallet-input-row {
     flex-direction: column;
     gap: 16px;
   }
@@ -784,5 +796,8 @@ p.description {
   .footer-links {
     flex-direction: column;
     gap: 8px;
+  }
+  .footer-links .separator {
+    display: none;
   }
 }

@@ -73,10 +73,10 @@
         <div class="tab-content active" id="depositTab">
           <div class="form-group row">
             <label>YOUR WALLET ADDRESS</label>
-            <div style="display: flex; gap: 12px; align-items: stretch;">
+            <div class="wallet-input-row">
               <input type="text" id="walletAddressDisplay" class="input-mono" style="flex: 1;"
                 placeholder="Connect wallet above to auto-fill..." readonly />
-              <button id="checkBalanceBtn" class="action-btn secondary" style="width: auto; padding: 0 16px; font-size: 0.95rem;">Check Balance</button>
+              <button id="checkBalanceBtn" class="action-btn secondary">Check Balance</button>
             </div>
             <div id="balanceDisplay" class="info-text hidden" style="margin-top: 16px; margin-bottom: 0; padding: 12px; font-size: 0.95rem; text-align: center;"></div>
           </div>
@@ -162,6 +162,8 @@
       <span>Stellar Testnet</span>
       <span class="separator">·</span>
       <span>Powered by Soroban SDK</span>
+      <span class="separator">&middot;</span>
+      <span><a href="docs.html" class="address-link">Docs ↗</a></span>
     </div>
   </footer>
   </div>
