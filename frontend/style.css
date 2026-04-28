@@ -286,6 +286,18 @@ button {
 
 .tab-content.active {
   display: block;
+  animation: fadeInSlideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* FORM ELEMENTS */
@@ -393,7 +405,7 @@ input::placeholder {
 }
 
 .custom-slider::-webkit-slider-thumb:hover {
-  transform: translate(2px, 2px);
+  transform: translate(2px, 2px) scale(1.1);
   box-shadow: 1px 1px 0px #000000;
 }
 
@@ -405,11 +417,11 @@ input::placeholder {
   border: 3px solid #000000;
   cursor: pointer;
   box-shadow: 3px 3px 0px #000000;
-  transition: all 0.1s ease;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .custom-slider::-moz-range-thumb:hover {
-  transform: translate(2px, 2px);
+  transform: translate(2px, 2px) scale(1.1);
   box-shadow: 1px 1px 0px #000000;
 }
 
@@ -611,6 +623,25 @@ p.description {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  animation: itemSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  opacity: 0;
+}
+
+.history-item:nth-child(1) { animation-delay: 0.1s; }
+.history-item:nth-child(2) { animation-delay: 0.2s; }
+.history-item:nth-child(3) { animation-delay: 0.3s; }
+.history-item:nth-child(4) { animation-delay: 0.4s; }
+.history-item:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes itemSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 .history-item-header {
   display: flex;

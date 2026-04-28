@@ -92,19 +92,19 @@
 
           <div class="form-group row" style="margin-bottom: 24px;">
             <label>LOCK DURATION (SECONDS)</label>
-            <input type="number" id="durationSecondsInput" class="input-mono" min="60" max="31536000"
+            <input type="number" id="durationSecondsInput" class="input-mono" min="1" max="31536000"
               style="margin-bottom: 4px;" placeholder="e.g. 86400" />
-            <div style="font-size: 0.85rem; color: #888;">Enter duration in seconds (60 &ndash; 31,536,000)</div>
+            <div style="font-size: 0.85rem; color: #888;">Enter duration in seconds (1 &ndash; 31,536,000)</div>
             <div id="durationError" style="font-size: 0.85rem; color: #ff4d4f; display: none; margin-top: 4px;">Invalid
-              input. Must be between 60 and 31,536,000.</div>
+              input. Must be between 1 and 31,536,000.</div>
           </div>
 
           <div class="form-group row slider-group">
             <div class="slider-header">
               <label>QUICK LOCK DURATION</label>
-              <div class="slider-value" id="quickLockValue">1 minute</div>
+              <div class="slider-value" id="quickLockValue">1 second</div>
             </div>
-            <input type="range" id="quickLockSlider" min="60" max="31536000" value="60" class="custom-slider" />
+            <input type="range" id="quickLockSlider" min="1" max="31536000" value="1" class="custom-slider" />
           </div>
 
           <div class="info-box">

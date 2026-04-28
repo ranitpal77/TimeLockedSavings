@@ -108,7 +108,7 @@ function syncDateToSlider() {
   
   let diffSeconds = selectedUnix - currentUnix;
   
-  if (diffSeconds < 60) diffSeconds = 60;
+  if (diffSeconds < 1) diffSeconds = 1;
   if (diffSeconds > 31536000) diffSeconds = 31536000;
   
   currentSelectedUnix = currentUnix + diffSeconds;
@@ -138,7 +138,7 @@ function syncInputToOthers() {
      return;
   }
   const seconds = parseInt(valInfo);
-  if (isNaN(seconds) || seconds < 60 || seconds > 31536000) {
+  if (isNaN(seconds) || seconds < 1 || seconds > 31536000) {
     durationSecondsInput.style.borderColor = 'red';
     durationError.style.display = 'block';
     return;
@@ -155,10 +155,10 @@ quickLockSlider.addEventListener('input', syncSliderToDate);
 unlockDateTimePicker.addEventListener('change', syncDateToSlider);
 durationSecondsInput.addEventListener('input', syncInputToOthers);
 
-quickLockSlider.value = 60;
+quickLockSlider.value = 1;
 syncSliderToDate();
 // ensure the input starts properly synced since activeElement check might skip it
-durationSecondsInput.value = 60;
+durationSecondsInput.value = 1;
 
 // --- HELPER FUNCTIONS ---
 function setStatus(element, msg, type = 'loading') {
@@ -340,8 +340,8 @@ depositBtn.addEventListener('click', async () => {
   }
 
   const inputSeconds = parseInt(durationSecondsInput.value);
-  if (isNaN(inputSeconds) || inputSeconds < 60 || inputSeconds > 31536000) {
-    setStatus(depositStatus, 'Lock duration must be between 60 and 31,536,000 seconds.', 'error');
+  if (isNaN(inputSeconds) || inputSeconds < 1 || inputSeconds > 31536000) {
+    setStatus(depositStatus, 'Lock duration must be between 1 and 31,536,000 seconds.', 'error');
     return;
   }
 
