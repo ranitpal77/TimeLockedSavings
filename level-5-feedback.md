@@ -21,7 +21,7 @@ We have successfully completed a major development sprint, shipping 9 commits ov
     *   We also fixed the visual "empty state" bug so new users see a boldly styled "No transactions yet" box rather than floating text.
 
 ### 3. The Design & UX Polish
-*   **`d53d2e7` (Continued)**
+*   **[`d53d2e7`](https://github.com/ranitpal77/TimeLockedSavings/commit/d53d2e7) (Continued)**
     *   We stripped out all the generic emojis across the UI and replaced them with crisp, professional Lucide SVG icons. We used CSS Flexbox to ensure they were perfectly vertically aligned inside the NeoBrutalist buttons.
 *   **[`d0abad8`](https://github.com/ranitpal77/TimeLockedSavings/commit/d0abad8) feat: add documentation page and improve mobile responsiveness**
     *   We created a brand new `/docs` page that matches the NeoBrutalist styling, explaining the 3 simple steps to use the dApp (Connect, Lock, Withdraw) along with the contract address.
