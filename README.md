@@ -149,11 +149,36 @@ Time-Locked-Savings/
 ## 🌐 Live Demo
 [Live demo link](https://timevault.007575.xyz)
 
-## 🎥 minimum viable product (Demo Video)
+## 🎥 Minimum Viable Product (Demo Video)
 [MVP](https://drive.google.com/file/d/1UOkYQjGgEmQkywJZ5wpjTa1eESZlOQ_G/view?usp=sharing)
 
 ## 📝 Level 5 Feedbacks & Improvement Section
-- [Level 5 user feedback (Google Form)](https://forms.gle/AUs5U4Du1oURL8jU7)
-- [Level 5 user feedback (Responses)](https://docs.google.com/spreadsheets/d/1rvzfpsDSV-m4lZD0aDTtPeHgy4KvIEIp7fI9gz0iJlY/edit?usp=sharing)
-- [Simple version of level 5 feedback form (including git commits)](https://docs.google.com/spreadsheets/d/1bJM-fENmiJJDckouTgFVd47WRLBnSs3UNX8JO2_X-1E/edit?usp=sharing)
+
+### 👥 User Feedback Wallets
+| User | Wallet Address |
+| :--- | :--- |
+| User 01 | `GBVGGKESL3MSWIQB6F64HKJKDRKNB3IHFJQT6AK7YOWPZDKPRFL4XMXS` |
+| User 02 | `GA6XN7NQ3RYRBR44KEJOP67ED4LTTHKEOLFQNE4YHX6P2AUUHRTBVU7F` |
+| User 03 | `GCMVKGLB7TSOU5E5354ALZHUFKXYSKRDB5XWTNWV36DSTBFZUXXQ7VDG` |
+| User 04 | `GCGCJDHNSBVN7ILWV4M636O7ZT3FPIHVPD2IC5SBBTMQWRD5GJ4M6L36` |
+| User 05 | `GAKRKYDMLFMXDYJAD3VYKDFYZGPACZZ4GDCAG5DWQSLQ5WQIZK6KZ4AD` |
+
+---
+
+- [Google Form](https://forms.gle/AUs5U4Du1oURL8jU7)
+- [Feedback Responses Google sheet](https://docs.google.com/spreadsheets/d/1rvzfpsDSV-m4lZD0aDTtPeHgy4KvIEIp7fI9gz0iJlY/edit?usp=sharing)
+- [Feedback Responses Google sheet including git commits](https://docs.google.com/spreadsheets/d/1bJM-fENmiJJDckouTgFVd47WRLBnSs3UNX8JO2_X-1E/edit?usp=sharing)
 - [Proper Documentaion](./level-5-feedback.md)
+
+### 📊 Feedback Implementation Review
+Based on the feedback received from the testing cohort, we implemented several major improvements:
+
+| Feedback Category | User Feedback Highlights | Implementation / Action Taken |
+| :--- | :--- | :--- |
+| **Documentation** | "Not enough instructions", "Can't view docs without connecting wallet" | Created a dedicated `/docs` page explaining usage steps and made it accessible globally. |
+| **Responsiveness** | "Docs and links are overflowing" | Fixed CSS media queries and added text-wrapping for long strings (like Contract IDs) on mobile/laptop. |
+| **Core Features** | "Transaction history list missing" | Built a robust History tab tracking individual deposits with **live running timers**. |
+| **Wallet Integration** | Needed a way to view native XLM balance without leaving app | Added a **"Check Balance"** feature to instantly fetch real-time XLM balances. |
+| **Smart Contract** | "More than one deposit can't happen" | Completely rewrote the Rust contract to support **multiple simultaneous deposits** per user without failing. |
+| **UX Quality of Life** | Hard to test with long wait times | Lowered the minimum lock duration from 60 seconds down to **1 second** (range: 1 to 31,536,000 seconds) for easier testing. |
+| **UI Polish** | "Simple and unique UI", minor styling tweaks | Refined the NeoBrutalist UI, replaced emojis with crisp SVG icons, and fixed button alignments. |
