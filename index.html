@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time Vault</title>
+  <link rel="icon" type="image/svg+xml" href="/realFavicon.svg?v=2">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script type="module" crossorigin src="/assets/main-uQVupLbl.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/style-CnA451-O.css">
+</head>
+
+<body>
+  <div id="app">
+    <nav class="navbar">
+      <a href="/" class="logo" style="text-decoration: none; color: inherit;">
+        <span class="logo-text">Vault</span>
+      </a>
+      <div class="nav-actions">
+        <div class="network-badge">
+          <span class="status-dot"></span>
+          Stellar Testnet
+        </div>
+        <button id="connectBtn" class="primary-btn">
+          <span id="connectBtnText">Connect Freighter</span>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <header class="hero">
+        <div class="tagline">
+          <span class="tagline-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hourglass"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg></span>
+          TIME-LOCKED SAVINGS
+        </div>
+        <h1 class="hero-title">
+          Lock it.<br />
+          <span class="highlight">Grow it.</span> Unlock.
+        </h1>
+        <p class="hero-subtitle">
+          Commit your funds to the future. Soroban enforces your<br />
+          savings goals - no early exits.
+        </p>
+      </header>
+
+      <div id="walletBanner" class="wallet-banner">
+        <div class="banner-icon"><img src="/assets/keys-logo-BWJHWY7U.png" alt="Wallet Logo"
+            style="width: 28px; height: 28px; border-radius: 6px; object-fit: cover;" /></div>
+        <p>
+          <span class="banner-highlight">Connect your Freighter wallet</span> to deposit, withdraw, and interact with
+          the contract.
+        </p>
+      </div>
+
+      <div class="app-container">
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="deposit">
+            <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span> Deposit
+          </button>
+          <button class="tab-btn" data-tab="withdraw">
+            <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-banknote"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></span> Withdraw
+          </button>
+          <button class="tab-btn" data-tab="history">
+            <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg></span> History
+          </button>
+        </div>
+
+        <div class="tab-content active" id="depositTab">
+          <div class="form-group row">
+            <label>YOUR WALLET ADDRESS</label>
+            <div class="wallet-input-row">
+              <input type="text" id="walletAddressDisplay" class="input-mono" style="flex: 1;"
+                placeholder="Connect wallet above to auto-fill..." readonly />
+              <button id="checkBalanceBtn" class="action-btn secondary">Check Balance</button>
+            </div>
+            <div id="balanceDisplay" class="info-text hidden" style="margin-top: 16px; margin-bottom: 0; padding: 12px; font-size: 0.95rem; text-align: center;"></div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group half">
+              <label>AMOUNT (XLM)</label>
+              <div class="input-with-suffix">
+                <input type="number" step="0.0000001" id="amountInput" class="input-mono" placeholder="10.5" />
+              </div>
+            </div>
+            <div class="form-group half">
+              <label>UNLOCK DATE & TIME</label>
+              <input type="datetime-local" id="unlockDateTimePicker" class="input-mono" />
+            </div>
+          </div>
+
+          <div class="form-group row" style="margin-bottom: 24px;">
+            <label>LOCK DURATION (SECONDS)</label>
+            <input type="number" id="durationSecondsInput" class="input-mono" min="1" max="31536000"
+              style="margin-bottom: 4px;" placeholder="e.g. 86400" />
+            <div style="font-size: 0.85rem; color: #888;">Enter duration in seconds (1 &ndash; 31,536,000)</div>
+            <div id="durationError" style="font-size: 0.85rem; color: #ff4d4f; display: none; margin-top: 4px;">Invalid
+              input. Must be between 1 and 31,536,000.</div>
+          </div>
+
+          <div class="form-group row slider-group">
+            <div class="slider-header">
+              <label>QUICK LOCK DURATION</label>
+              <div class="slider-value" id="quickLockValue">1 second</div>
+            </div>
+            <input type="range" id="quickLockSlider" min="1" max="31536000" value="1" class="custom-slider" />
+          </div>
+
+          <div class="info-box">
+            <div class="info-text" style="margin-bottom: 0; text-align: center;">
+              <p>Funds locked until <span id="lockedUntilDate" class="highlight-text">--</span></p>
+            </div>
+          </div>
+
+          <button id="depositBtn" class="action-btn">
+            <span class="btn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span> Lock Funds on Soroban
+          </button>
+
+          <div id="depositStatus" class="status-message"></div>
+        </div>
+
+        <div class="tab-content" id="withdrawTab">
+          <div class="withdraw-view">
+            <h2>Withdraw Funds</h2>
+            <p class="description">Withdraw your unlocked funds from the contract.</p>
+            <p class="info-text">You can only withdraw after your lock time expires. Ensure you are connected to the
+              same wallet you used to deposit.</p>
+
+
+            <button id="withdrawBtn" class="action-btn secondary">
+              <span class="btn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-banknote"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></span> Withdraw Tokens
+            </button>
+
+            <div id="withdrawStatus" class="status-message"></div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="historyTab">
+          <div class="history-view">
+            <h2>Transaction History</h2>
+            <p class="description">Your deposit and withdrawal history with live timers.</p>
+            <div id="historyList" class="history-list">
+              <div class="info-box" style="text-align: center; padding: 32px;"><p class="info-text" style="margin:0; color: var(--text-main); font-weight: bold;">Connect your wallet to view history.</p></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+  </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <span>View Contract on <a
+          href="https://stellar.expert/explorer/testnet/contract/CB7325I7Q2ZX3TQFJSVSDYR5PJUNA5MR3CG4LPEDLHHXTWWWNM6RBYSD"
+          target="_blank" class="address-link" id="contractAddressLink">Stellar.expert ↗</a></span>
+      <span class="separator">&middot;</span>
+      <span>Stellar Testnet</span>
+      <span class="separator">·</span>
+      <span>Powered by Soroban SDK</span>
+      <span class="separator">&middot;</span>
+      <span><a href="/docs/index.html" class="address-link">Docs ↗</a></span>
+    </div>
+  </footer>
+  </div>
+</body>
+
+</html>
