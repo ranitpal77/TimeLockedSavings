@@ -55,10 +55,10 @@ The **Time-Locked Savings dApp** is a decentralized application built on the Ste
 ![Deployed Contract Placeholder](./screenshots/Deployed-SmartContract-Screenshot.png)
 
 ### 📸 UI Screenshot
-![UI Screenshot Placeholder](./screenshots/UI.png)
+![UI Screenshot Placeholder](./screenshots/UI-02.png)
 
 ### 📸 Mobile Responsive View
-![Mobile Responsive View](./screenshots/mobile-responsive-view.png)
+![Mobile Responsive View](./screenshots/mobile-UI-02.png)
 
 ### 📸 Test Output
 ![test output showing 3+ tests passing](./screenshots/test-output-02.png)
@@ -163,7 +163,7 @@ Time-Locked-Savings/
 [Live demo link](https://timevault.007575.xyz)
 
 ## 🎥 Demo Video
-[Watch Demo Video](https://drive.google.com/file/d/1tuKrx2812jXpvJFQ30bc6T0D2QIfy1yR/view?usp=sharing)
+[MVP](https://drive.google.com/file/d/1UOkYQjGgEmQkywJZ5wpjTa1eESZlOQ_G/view?usp=sharing)
 
 ## 📝 Level 5 Feedbacks & Improvement Section
 - [Level 5 user feedback (Responses)](https://docs.google.com/spreadsheets/d/1rvzfpsDSV-m4lZD0aDTtPeHgy4KvIEIp7fI9gz0iJlY/edit?usp=sharing)
