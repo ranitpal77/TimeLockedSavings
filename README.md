@@ -101,7 +101,7 @@ flowchart LR
 ## 🛠️ Setup Instructions (How to run locally)
 
 ### Prerequisites
-- Node.js (v18 or higher recommended)
+- Node.js (v20 or higher recommended)
 - Rust and Cargo (for smart contract compilation, optional for frontend)
 - Freighter Wallet extension installed in your browser
 
