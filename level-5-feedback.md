@@ -39,3 +39,5 @@ We have successfully completed a major development sprint, shipping 9 commits ov
     *   Removed the slight CSS rotation on the "Grow it." highlight on desktop screens so that it aligns perfectly horizontally with the adjacent text, exactly matching the mobile layout.
 *   **[`fa1c16e`](https://github.com/ranitpal77/TimeLockedSavings/commit/fa1c16e789a350311ffa8c91b13858cb072faa10) style: replace wallet connected emoji with svg icon**
     *   Replaced the legacy ✅ emoji in the "Wallet connected!" banner with a crisp, properly styled Lucide `check-circle` SVG to ensure consistency across the entire UI.
+*   **[`4895951`](https://github.com/ranitpal77/TimeLockedSavings/commit/4895951d40a1a3e6d1ca290be80239e529727e75) style: fix mobile responsiveness for docs page**
+    *   Made the documentation page responsive on mobile displays by allowing long strings (like the Contract ID) to line-wrap and reducing the hardcoded container padding.
