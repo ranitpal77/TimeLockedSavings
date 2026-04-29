@@ -1,6 +1,6 @@
 # ⏳ Time-Locked Savings dApp
 
-[![Rust CI](https://github.com/ranitpal77/TimeLockedSavings/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/ranitpal77/TimeLockedSavings/actions/workflows/test.yml)
+[![CI/CD Pipeline](https://github.com/ranitpal77/TimeLockedSavings/actions/workflows/ci-cd.yml/badge.svg?branch=main)](https://github.com/ranitpal77/TimeLockedSavings/actions/workflows/ci-cd.yml)
 
 ![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
 ![Stellar](https://img.shields.io/badge/stellar-%23EF3B49.svg?style=for-the-badge&logo=stellar&logoColor=white)
