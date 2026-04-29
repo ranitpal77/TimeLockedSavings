@@ -273,7 +273,7 @@ async function connectWallet() {
         userPublicKey = pubKey;
         const shortAddress = `${userPublicKey.substring(0, 5)}...${userPublicKey.substring(userPublicKey.length - 4)}`;
         connectBtnText.textContent = shortAddress;
-        walletBanner.innerHTML = `<div class="banner-icon">✅</div><p>Wallet connected! Ready to interact with the Vault.</p>`;
+        walletBanner.innerHTML = `<div class="banner-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg></div><p>Wallet connected! Ready to interact with the Vault.</p>`;
         walletAddressDisplay.value = userPublicKey;
         renderHistory();
       } else {
