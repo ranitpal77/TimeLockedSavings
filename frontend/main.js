@@ -4,8 +4,6 @@ import {
   signTransaction,
 } from '@stellar/freighter-api';
 import * as StellarSdk from '@stellar/stellar-sdk';
-import flatpickr from 'flatpickr';
-import 'flatpickr/dist/themes/dark.css';
 
 const CONTRACT_ID = 'CB7325I7Q2ZX3TQFJSVSDYR5PJUNA5MR3CG4LPEDLHHXTWWWNM6RBYSD';
 const TOKEN_ADDRESS = 'CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC'; // Testnet XLM
@@ -38,16 +36,6 @@ const durationError = document.getElementById('durationError');
 const quickLockSlider = document.getElementById('quickLockSlider');
 const quickLockValue = document.getElementById('quickLockValue');
 const lockedUntilDate = document.getElementById('lockedUntilDate');
-
-let fp = flatpickr(unlockDateTimePicker, {
-  enableTime: true,
-  dateFormat: "Y-m-d\\TH:i",
-  time_24hr: false,
-  minDate: "today",
-  onChange: function() {
-    syncDateToSlider();
-  }
-});
 
 // --- TABS LOGIC ---
 const tabBtns = document.querySelectorAll('.tab-btn');
@@ -109,11 +97,7 @@ function syncSliderToDate() {
   const targetDate = new Date(currentSelectedUnix * 1000);
   const tzOffset = targetDate.getTimezoneOffset() * 60000;
   const localIso = new Date(targetDate.getTime() - tzOffset).toISOString().slice(0, 16);
-  if (fp) {
-    fp.setDate(localIso, false);
-  } else {
-    unlockDateTimePicker.value = localIso;
-  }
+  unlockDateTimePicker.value = localIso;
   
   updateDateDisplay(currentSelectedUnix);
 }
@@ -136,11 +120,7 @@ function syncDateToSlider() {
   const tzOffset = adjustedTargetDate.getTimezoneOffset() * 60000;
   const localIso = new Date(adjustedTargetDate.getTime() - tzOffset).toISOString().slice(0, 16);
   if (unlockDateTimePicker.value !== localIso) {
-    if (fp) {
-      fp.setDate(localIso, false);
-    } else {
-      unlockDateTimePicker.value = localIso;
-    }
+    unlockDateTimePicker.value = localIso;
   }
   
   quickLockSlider.value = diffSeconds;
@@ -175,6 +155,7 @@ function syncInputToOthers() {
 }
 
 quickLockSlider.addEventListener('input', syncSliderToDate);
+unlockDateTimePicker.addEventListener('change', syncDateToSlider);
 durationSecondsInput.addEventListener('input', syncInputToOthers);
 
 quickLockSlider.value = 1;
