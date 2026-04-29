@@ -135,11 +135,6 @@ flowchart LR
    ```
 5. Open the local URL provided by Vite in your browser.
 
-## 🔮 Future Enhancements
-- **Yield Generation**: Integrate with Stellar DeFi lending pools (e.g., Blend) so locked assets accumulate interest during the vesting period.
-- **Multi-Deposit Support**: Evolve the DataKey mapping structure to iterate and allow a single user to maintain multiple differently-timed lockboxes at once.
-- **Penalty Logic**: Implement an "Emergency Withdraw" function that allows premature unlocking in exchange for a protocol fee/penalty burn.
-
 ## 📂 Project Structure
 ```text
 Time-Locked-Savings/
@@ -150,12 +145,19 @@ Time-Locked-Savings/
 │       │   └── test.rs        # Contract Unit tests
 │       └── Cargo.toml         # Rust dependencies
 ├── frontend/                  # Vanilla JS Frontend built with Vite
+│   ├── docs/                  # Documentation sub-site
 │   ├── index.html             # Main dApp Interface
 │   ├── style.css              # Custom styling UI and animations
 │   ├── main.js                # Stellar SDK and Freighter API interactions
+│   ├── vite.config.js         # Vite build configuration
 │   └── package.json           # Frontend dependencies 
 └── README.md                  # Project documentation
 ```
+
+## 🔮 Future Enhancements
+- **Fee Sponsorship**: Implement gasless transactions using Stellar's fee bump feature so users do not need to hold native XLM just to pay for network fees.
+- **Google Authentication**: Create user-specific integrations using Google Auth for streamlined account management and personalized experiences.
+- **Website Improvements**: Make the dApp more functional and user-friendly by creating a dedicated navigation bar, adding a robust features page, and expanding the existing documentation pages.
 
 ## 🌐 Live Demo
 [Live demo link](https://timevault.007575.xyz)
@@ -163,7 +165,7 @@ Time-Locked-Savings/
 ## 🎥 Demo Video
 [Watch Demo Video](https://drive.google.com/file/d/1tuKrx2812jXpvJFQ30bc6T0D2QIfy1yR/view?usp=sharing)
 
-## 📝 Level 5 Feedback
+## 📝 Level 5 Feedbacks & Improvement Section
 - [Level 5 user feedback (Responses)](https://docs.google.com/spreadsheets/d/1rvzfpsDSV-m4lZD0aDTtPeHgy4KvIEIp7fI9gz0iJlY/edit?usp=sharing)
 - [Simple version of level 5 feedback form (including git commits)](https://docs.google.com/spreadsheets/d/1bJM-fENmiJJDckouTgFVd47WRLBnSs3UNX8JO2_X-1E/edit?usp=sharing)
 - [Proper Documentaion](./level-5-feedback.md)
