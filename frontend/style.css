@@ -184,7 +184,6 @@ button {
   padding: 0 10px;
   border: var(--border-thick);
   box-shadow: var(--neo-shadow);
-  transform: rotate(-2deg);
 }
 
 .hero-subtitle {
@@ -738,7 +737,6 @@ p.description {
   }
   .hero-title .highlight {
     padding: 0 6px;
-    transform: rotate(0);
   }
   .navbar {
     flex-direction: column;
