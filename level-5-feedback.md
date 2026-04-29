@@ -35,3 +35,7 @@ We have successfully completed a major development sprint, shipping 9 commits ov
 *   **[`703129e`](https://github.com/ranitpal77/TimeLockedSavings/commit/703129e) style: fix mobile UI alignment for tabs and check balance button**
     *   Updated the mobile CSS media queries to stack the tab buttons vertically on phone screens to prevent text overlap.
     *   Fixed the padding on the "Check Balance" button so it doesn't collapse vertically when wrapping to a new line on smaller devices.
+*   **[`c77ff7f`](https://github.com/ranitpal77/TimeLockedSavings/commit/c77ff7fe090e9a922924b5e43a4269b718a45855) style: fix hero highlight text alignment on desktop**
+    *   Removed the slight CSS rotation on the "Grow it." highlight on desktop screens so that it aligns perfectly horizontally with the adjacent text, exactly matching the mobile layout.
+*   **[`fa1c16e`](https://github.com/ranitpal77/TimeLockedSavings/commit/fa1c16e789a350311ffa8c91b13858cb072faa10) style: replace wallet connected emoji with svg icon**
+    *   Replaced the legacy ✅ emoji in the "Wallet connected!" banner with a crisp, properly styled Lucide `check-circle` SVG to ensure consistency across the entire UI.
