@@ -176,7 +176,7 @@ Time-Locked-Savings/
 - [Google Form](https://forms.gle/AUs5U4Du1oURL8jU7)
 - [Feedback Responses Google sheet](https://docs.google.com/spreadsheets/d/1rvzfpsDSV-m4lZD0aDTtPeHgy4KvIEIp7fI9gz0iJlY/edit?usp=sharing)
 - [Feedback Responses Google sheet including git commits](https://docs.google.com/spreadsheets/d/1bJM-fENmiJJDckouTgFVd47WRLBnSs3UNX8JO2_X-1E/edit?usp=sharing)
-- [Proper Documentaion](./level-5-feedback.md)
+- [Proper Documentation including git commit links](./level-5-feedback.md)
 
 ### 📊 Feedback Implementation Review
 Based on the feedback received from the testing cohort, we implemented several major improvements:
