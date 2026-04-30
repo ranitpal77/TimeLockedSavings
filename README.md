@@ -58,8 +58,8 @@ The **Time Vault dApp** is a decentralized protocol built on Soroban that fundam
 ![test output showing 3+ tests passing](./screenshots/level-5/test-output-03.png)
 
 ### 📸 CI/CD Pipeline
-![CI/CD Pipeline running](./screenshots/level-5/Screenshot-of-cicd-02.png)
-![CI/CD Pipeline running](./screenshots/level-5/Screenshot-of-cicd-03.png)
+![CI/CD Pipeline running](./screenshots/level-5/Screenshot-of-cicd-04.png)
+![CI/CD Pipeline running](./screenshots/level-5/Screenshot-of-cicd-05.png)
 
 ---
 
@@ -190,4 +190,4 @@ Based on the feedback received from the testing cohort, we implemented several m
 | **Smart Contract** | "More than one deposit can't happen" | Completely rewrote the Rust contract to support **multiple simultaneous deposits** per user without failing. |
 | **UX Quality of Life** | Hard to test with long wait times | Lowered the minimum lock duration from 60 seconds down to **1 second** (range: 1 to 31,536,000 seconds) for easier testing. |
 | **UI Polish** | "Simple and unique UI", minor styling tweaks | Refined the NeoBrutalist UI, replaced emojis with crisp SVG icons, and fixed button alignments. |
-| **Use Case Enhancement** | "Needs a stronger Stellar-specific use case" | Implemented **Targeted Locking (Escrow)** allowing users to set a Recipient Address for trustless vesting and time-delayed remittances. |
+| **Use Case Enhancement** | "Project needs a stronger, Stellar-native use case beyond personal savings." | **Pivoted to Targeted Escrow:** Upgraded the smart contract & UI to support a **Recipient Address**. Users can now execute trustless DAO vesting or time-delayed cross-border remittances, massively increasing real-world utility. |

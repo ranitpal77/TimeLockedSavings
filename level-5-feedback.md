@@ -41,3 +41,10 @@ We have successfully completed a major development sprint, shipping 9 commits ov
     *   Replaced the legacy ✅ emoji in the "Wallet connected!" banner with a crisp, properly styled Lucide `check-circle` SVG to ensure consistency across the entire UI.
 *   **[`4895951`](https://github.com/ranitpal77/TimeLockedSavings/commit/4895951d40a1a3e6d1ca290be80239e529727e75) style: fix mobile responsiveness for docs page**
     *   Made the documentation page responsive on mobile displays by allowing long strings (like the Contract ID) to line-wrap and reducing the hardcoded container padding.
+
+### 4. Narrative & Use Case Expansion
+*   **[`3f5d9bf`](https://github.com/ranitpal77/TimeLockedSavings/commit/3f5d9bf7affa57ddfab38b366320d3fbb39c72fe) feat: implement Targeted Escrow locking and update feedback documentation**
+    *   **The Paradigm Shift:** We upgraded the dApp from a simple personal savings tool to a powerful **Targeted Escrow** and vesting contract.
+    *   We modified the Soroban smart contract to accept a specific `recipient` address upon deposit. Funds are now strictly locked to that recipient's address, allowing users to trustlessly lock funds for *other* people (e.g., time-delayed remittances or token vesting).
+    *   We updated the UI to include an optional "Recipient Address" input field and overhauled the transaction history logic to visually indicate when a deposit is made on behalf of another user.
+    *   Finally, we reframed the documentation and `README.md` to highlight these robust, Stellar-native use cases, drastically improving the project's real-world utility.
