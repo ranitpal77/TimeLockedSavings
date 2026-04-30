@@ -6,14 +6,19 @@
 ![Stellar](https://img.shields.io/badge/stellar-%23EF3B49.svg?style=for-the-badge&logo=stellar&logoColor=white)
 ![Soroban](https://img.shields.io/badge/soroban-%232D79C7.svg?style=for-the-badge)
 
-## 📖 Project Description
-The **Time-Locked Savings dApp** is a decentralized application built on the Stellar network utilizing Soroban Smart Contracts. It promotes disciplined saving mechanisms or delayed gratification by allowing users to securely lock up their Stellar assets (e.g., XLM, USDC, DAO tokens) for a predefined period. Once the funds are locked, they are cryptographically secured and strictly immobilized. The funds cannot be retrieved under any circumstances until the designated maturity timeline (ledger timestamp) has been reached.
+## 📖 The Stellar Advantage: Beyond Simple Savings
+The **Time Vault dApp** is a decentralized protocol built on Soroban that fundamentally upgrades how users handle delayed gratification, escrows, and vesting on the Stellar network. By leveraging Stellar's sub-cent transaction fees and Soroban's predictable state expiration, it enables scenarios that are cost-prohibitive on other chains:
 
-## 🚀 What it does
+- **🌍 Time-Delayed Remittances:** Send USDC or XLM to family abroad, locked until rent or school fees are due, preventing premature spending.
+- **🌱 Micro-Savings for Emerging Markets:** Stellar's low fees allow users to lock up fractions of a cent daily, fostering disciplined saving habits for the unbanked.
+- **💼 Trustless DAO Vesting:** Lightweight, mathematically enforced escrow for new Stellar projects to lock team or investor tokens without complex legal intermediaries.
+
+## 🚀 How It Works
 1. **Connect Wallet:** Seamlessly pairs with the Freighter extension.
-2. **Deposit & Lock:** Users interact with the smart contract directly via the UI, depositing a designated token amount. They can effortlessly set their lock duration (between 1 minute and 1 year) using an intuitive range slider or a precise numeric input.
-3. **Secure Holding:** The immutable Soroban smart contract transfers the tokens from the user's wallet into its own decentralized custody.
-4. **Maturity & Withdrawal:** Once the current ledger timestamp surpasses the user-specified unlock duration, the user can call the `withdraw` function to instantly reclaim their funds. Premature withdrawal attempts will be mathematically rejected by the underlying Soroban VM.
+2. **Targeted Locking (Escrow):** Users interact with the smart contract via the UI. You can lock funds for yourself (Savings), or specify a **Recipient Address** to lock funds for someone else (Vesting/Remittance).
+3. **Set Maturity:** Effortlessly set the lock duration using an intuitive range slider or precise numeric input (seconds to years).
+4. **Immutable Custody:** The Soroban smart contract transfers the tokens into decentralized custody, secured by cryptographic timestamps.
+5. **Unlock & Withdraw:** Once the ledger timestamp surpasses the unlock duration, the designated recipient can instantly reclaim the funds. Premature withdrawal attempts are rejected by the Soroban VM at the protocol level.
 
 ## ✨ Features
 - **100% Permissionless Nature**: The core contract operates completely without a central admin or escrow agent. Any user can interact and generate their own lock timeline trustlessly.
@@ -25,6 +30,9 @@ The **Time-Locked Savings dApp** is a decentralized application built on the Ste
 **[View on Stellar Lab](https://lab.stellar.org/r/testnet/contract/CA42QQ62UQSW3LY7FZ4ZSIXPW4IJX7J5RBW6UZHOMX7YBWPID5LPTR5T)**
 
 **[View Transaction on Stellar.Expert](https://stellar.expert/explorer/testnet/tx/c74b6efd527cc270b00e128b7fdd77d52a76eabfc4065d569ddf331fcde4858c)**
+
+## 🏦 Developer Wallet
+`GDFLHVAXB37QVIPV7LWLEIAPHQ7TYXG36LXX3CHMBFEQA67GDB44QLPI`
 
 ## 🆔 Contract ID 
 `CA42QQ62UQSW3LY7FZ4ZSIXPW4IJX7J5RBW6UZHOMX7YBWPID5LPTR5T`
@@ -47,7 +55,7 @@ The **Time-Locked Savings dApp** is a decentralized application built on the Ste
 ![Mobile Responsive View](./screenshots/level-5/mobile-UI-02.png)
 
 ### 📸 Test Output
-![test output showing 3+ tests passing](./screenshots/test-output-02.png)
+![test output showing 3+ tests passing](./screenshots/level-5/test-output-03.png)
 
 ### 📸 CI/CD Pipeline
 ![CI/CD Pipeline running](./screenshots/level-5/Screenshot-of-cicd-02.png)
@@ -182,3 +190,4 @@ Based on the feedback received from the testing cohort, we implemented several m
 | **Smart Contract** | "More than one deposit can't happen" | Completely rewrote the Rust contract to support **multiple simultaneous deposits** per user without failing. |
 | **UX Quality of Life** | Hard to test with long wait times | Lowered the minimum lock duration from 60 seconds down to **1 second** (range: 1 to 31,536,000 seconds) for easier testing. |
 | **UI Polish** | "Simple and unique UI", minor styling tweaks | Refined the NeoBrutalist UI, replaced emojis with crisp SVG icons, and fixed button alignments. |
+| **Use Case Enhancement** | "Needs a stronger Stellar-specific use case" | Implemented **Targeted Locking (Escrow)** allowing users to set a Recipient Address for trustless vesting and time-delayed remittances. |

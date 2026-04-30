@@ -30,7 +30,7 @@ fn test_deposit() {
     let unlock_time = 100;
     env.ledger().set_timestamp(50);
     
-    client.deposit(&user, &token.address, &500, &unlock_time);
+    client.deposit(&user, &user, &token.address, &500, &unlock_time);
     
     assert_eq!(token.balance(&user), 500);
     assert_eq!(token.balance(&contract_id), 500);
@@ -60,7 +60,7 @@ fn test_withdraw() {
     let unlock_time = 100;
     env.ledger().set_timestamp(50);
     
-    client.deposit(&user, &token.address, &500, &unlock_time);
+    client.deposit(&user, &user, &token.address, &500, &unlock_time);
     
     // Fast forward time
     env.ledger().set_timestamp(150);
@@ -89,8 +89,8 @@ fn test_multiple_deposits_and_partial_withdraw() {
     
     env.ledger().set_timestamp(50);
     
-    client.deposit(&user, &token.address, &300, &100);
-    client.deposit(&user, &token.address, &400, &200);
+    client.deposit(&user, &user, &token.address, &300, &100);
+    client.deposit(&user, &user, &token.address, &400, &200);
     
     assert_eq!(token.balance(&user), 300);
     assert_eq!(token.balance(&contract_id), 700);
@@ -127,7 +127,7 @@ fn test_deposit_past_unlock_time() {
     let unlock_time = 50;
     env.ledger().set_timestamp(100);
     
-    client.deposit(&user, &token.address, &500, &unlock_time);
+    client.deposit(&user, &user, &token.address, &500, &unlock_time);
 }
 
 #[test]
@@ -148,5 +148,44 @@ fn test_deposit_zero_amount() {
     let unlock_time = 150;
     env.ledger().set_timestamp(100);
     
-    client.deposit(&user, &token.address, &0, &unlock_time);
+    client.deposit(&user, &user, &token.address, &0, &unlock_time);
+}
+
+#[test]
+fn test_deposit_for_recipient() {
+    let env = Env::default();
+    env.mock_all_auths();
+    
+    let contract_id = env.register(TimeLockedSavings, ());
+    let client = TimeLockedSavingsClient::new(&env, &contract_id);
+    
+    let sender = Address::generate(&env);
+    let recipient = Address::generate(&env);
+    let admin = Address::generate(&env);
+    let (token, token_admin) = create_token_contract(&env, &admin);
+    
+    token_admin.mint(&sender, &1000);
+    
+    let unlock_time = 100;
+    env.ledger().set_timestamp(50);
+    
+    // Sender locks funds for recipient
+    client.deposit(&sender, &recipient, &token.address, &500, &unlock_time);
+    
+    assert_eq!(token.balance(&sender), 500);
+    assert_eq!(token.balance(&recipient), 0);
+    assert_eq!(token.balance(&contract_id), 500);
+    
+    // Check deposits using recipient address
+    let deposits = client.get_deposits(&recipient);
+    assert_eq!(deposits.len(), 1);
+    
+    // Fast forward
+    env.ledger().set_timestamp(150);
+    
+    // Recipient withdraws
+    client.withdraw(&recipient);
+    
+    assert_eq!(token.balance(&recipient), 500);
+    assert_eq!(token.balance(&contract_id), 0);
 }

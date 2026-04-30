@@ -21,8 +21,8 @@ pub struct TimeLockedSavings;
 impl TimeLockedSavings {
     /// Deposit funds into the time-locked savings contract.
     /// `unlock_time` is the ledger timestamp (in seconds) after which the funds can be withdrawn.
-    pub fn deposit(env: Env, user: Address, token: Address, amount: i128, unlock_time: u64) {
-        user.require_auth();
+    pub fn deposit(env: Env, sender: Address, recipient: Address, token: Address, amount: i128, unlock_time: u64) {
+        sender.require_auth();
 
         if amount <= 0 {
             panic!("Deposit amount must be strictly positive.");
@@ -32,11 +32,11 @@ impl TimeLockedSavings {
             panic!("Unlock time must be in the future.");
         }
 
-        // Transfer funds from the user to this contract
+        // Transfer funds from the sender to this contract
         let token_client = token::Client::new(&env, &token);
-        token_client.transfer(&user, &env.current_contract_address(), &amount);
+        token_client.transfer(&sender, &env.current_contract_address(), &amount);
 
-        let key = DataKey::UserDeposit(user.clone());
+        let key = DataKey::UserDeposit(recipient.clone());
         let mut deposits: Vec<Deposit> = env.storage().persistent().get(&key).unwrap_or(Vec::new(&env));
 
         // Record the deposit
@@ -51,10 +51,10 @@ impl TimeLockedSavings {
 
     /// Withdraw funds from the time-locked savings.
     /// Fails if there are no unlocked deposits.
-    pub fn withdraw(env: Env, user: Address) {
-        user.require_auth();
+    pub fn withdraw(env: Env, recipient: Address) {
+        recipient.require_auth();
 
-        let key = DataKey::UserDeposit(user.clone());
+        let key = DataKey::UserDeposit(recipient.clone());
         let deposits: Vec<Deposit> = env.storage().persistent().get(&key).expect("No deposit found for user.");
 
         let mut remaining_deposits = Vec::new(&env);
@@ -76,7 +76,7 @@ impl TimeLockedSavings {
 
         if let Some(t) = withdraw_token {
             let token_client = token::Client::new(&env, &t);
-            token_client.transfer(&env.current_contract_address(), &user, &total_withdrawn);
+            token_client.transfer(&env.current_contract_address(), &recipient, &total_withdrawn);
         }
 
         if remaining_deposits.is_empty() {

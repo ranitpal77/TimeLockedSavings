@@ -29,6 +29,7 @@ const checkBalanceBtn = document.getElementById('checkBalanceBtn');
 const balanceDisplay = document.getElementById('balanceDisplay');
 
 const walletAddressDisplay = document.getElementById('walletAddressDisplay');
+const recipientAddressInput = document.getElementById('recipientAddressInput');
 const amountInput = document.getElementById('amountInput');
 const unlockDateTimePicker = document.getElementById('unlockDateTimePicker');
 const durationSecondsInput = document.getElementById('durationSecondsInput');
@@ -193,6 +194,9 @@ function renderHistory() {
     
     if (item.type === 'Deposit') {
       typeText = `Deposit ${item.id || ''}`;
+      if (item.recipient && item.recipient !== userPublicKey) {
+        typeText += ` (For ${item.recipient.substring(0, 5)}...)`;
+      }
     } else if (item.type === 'Withdraw') {
       typeText = item.depositId ? `Withdraw (${item.depositId})` : 'Withdraw (Legacy)';
     }
@@ -373,6 +377,14 @@ depositBtn.addEventListener('click', async () => {
     return;
   }
   
+  const recipientInputVal = recipientAddressInput ? recipientAddressInput.value.trim() : '';
+  const recipientPublicKey = recipientInputVal !== '' ? recipientInputVal : userPublicKey;
+
+  if (recipientInputVal !== '' && recipientInputVal.length !== 56) {
+      setStatus(depositStatus, 'Invalid recipient address format.', 'error');
+      return;
+  }
+  
   const amtNum = parseFloat(amt);
   if (isNaN(amtNum) || amtNum <= 0) {
     setStatus(depositStatus, 'Please enter a valid positive amount.', 'error');
@@ -396,12 +408,13 @@ depositBtn.addEventListener('click', async () => {
     const contract = new StellarSdk.Contract(CONTRACT_ID);
     
     const userScVal = new StellarSdk.Address(userPublicKey).toScVal();
+    const recipientScVal = new StellarSdk.Address(recipientPublicKey).toScVal();
     const tokenScVal = new StellarSdk.Address(TOKEN_ADDRESS).toScVal();
     const stroops = Math.floor(amtNum * 10000000);
     const amountScVal = StellarSdk.nativeToScVal(BigInt(stroops), { type: 'i128' });
     const unlockTimeScVal = StellarSdk.nativeToScVal(BigInt(currentSelectedUnix), { type: 'u64' });
 
-    const operation = contract.call("deposit", userScVal, tokenScVal, amountScVal, unlockTimeScVal);
+    const operation = contract.call("deposit", userScVal, recipientScVal, tokenScVal, amountScVal, unlockTimeScVal);
 
     const tx = new StellarSdk.TransactionBuilder(sourceAccountInfo, { 
       fee: '150000', 
@@ -420,6 +433,7 @@ depositBtn.addEventListener('click', async () => {
          type: 'Deposit',
          id: uniqueId,
          amount: amt,
+         recipient: recipientPublicKey,
          unlockTime: currentSelectedUnix,
          timestamp: Math.floor(Date.now() / 1000)
       });
