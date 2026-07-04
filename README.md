@@ -191,5 +191,3 @@ Based on the feedback received from the testing cohort, we implemented several m
 | **UX Quality of Life** | Hard to test with long wait times | Lowered the minimum lock duration from 60 seconds down to **1 second** (range: 1 to 31,536,000 seconds) for easier testing. |
 | **UI Polish** | "Simple and unique UI", minor styling tweaks | Refined the NeoBrutalist UI, replaced emojis with crisp SVG icons, and fixed button alignments. |
 | **Use Case Enhancement** | "Project needs a stronger, Stellar-native use case beyond personal savings." | **Pivoted to Targeted Escrow:** Upgraded the smart contract & UI to support a **Recipient Address**. Users can now execute trustless DAO vesting or time-delayed cross-border remittances, massively increasing real-world utility. |
-
-ayushman was here testing
